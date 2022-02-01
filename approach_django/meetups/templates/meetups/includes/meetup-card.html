@@ -3,7 +3,7 @@
 
         <div cLass='meetup-summary'>
             <div class='meetup-image'>
-                <img src="" alt="an image here">
+                <img src="{{ image }}" alt="an image here">
             </div>
             <div class='meetup-details'>
                 <h3>{{ title }}</h3>
@@ -12,7 +12,7 @@
         </div>
 
         <div class='meetup-actions'>
-            <a href="{% url 'meetup-detail' meetup_item.slug %}" class='btn'>More Details</a>
+            <a href="{% url 'meetup-detail' slug %}" class='btn'>More Details</a>
         </div>
     </article>
 </li>
