@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/venv
+/approach_django/approach_django/__pycache__
+/approach_django/meetups/__pycache__
+/approach_django/meetups/migrations/__pycache__
