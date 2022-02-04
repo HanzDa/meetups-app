@@ -9,7 +9,7 @@
 
 {% block main_body %}
     <article>
-        <img src="" alt="">
+        <img id='main-image' src="{{ meetups_info.img.url }}" alt="{{ meetups_info.title }}">
 
         <section>
             <h2>Meetup Location</h2>
@@ -29,6 +29,8 @@
             <h2>Join us!</h2>
 
         </section>
+
+        <form action=""></form>
     </article>
 {% endblock %}
         
