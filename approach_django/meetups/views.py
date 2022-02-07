@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Meetup
 from .forms import RegistrationForm
@@ -38,6 +38,8 @@ def more_details(request, meetup_slug):
                 new_participant = registration_form.save()
                 meetups_info.participants.add(new_participant)
                 
+                return redirect('registration_success') # get name in url paths
+                
     
         return render(request, 'meetups/more_details.html', {
             'meetups_info': meetups_info,
@@ -46,3 +48,7 @@ def more_details(request, meetup_slug):
         
     except Exception as e:
         print(e)
+        
+
+def registration_success(request):
+    return render(request, 'meetups/registration-success.html')
