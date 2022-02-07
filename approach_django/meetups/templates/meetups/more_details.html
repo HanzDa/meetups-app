@@ -27,10 +27,19 @@
 
         <section id='registration'>
             <h2>Join us!</h2>
+            
+            <form action="{% url 'meetup-detail' meetups_info.slug %}" method="post">
+                {% csrf_token %}
+                <ul>
+                    {{ form.as_ul }}
+                </ul>
 
+                <div id='registration-actions'>
+                    <button type="submit">Register</button>
+                </div>
+            </form>
         </section>
 
-        <form action=""></form>
     </article>
 {% endblock %}
         
