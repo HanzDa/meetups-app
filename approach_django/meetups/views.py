@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Meetup
+from .models import Meetup, Participant
 from .forms import RegistrationForm
 # in django a view is a simple python function
 
@@ -35,10 +35,16 @@ def more_details(request, meetup_slug):
             
             if registration_form.is_valid():
                 # save in database
-                new_participant = registration_form.save()
+                # NOTE: in this case the save method doesn't really work for us since we want to let our participants to register in multiple meetups
+                # so in this case we should use the cleaned_date attribute which is a dictionary
+                # getting input from the user site
+                user_email = registration_form.cleaned_data['email'] # pass the field we have define in our form
+                
+                new_participant, was_created = Participant.objects.get_or_create(email=user_email)
+                print(was_created)
                 meetups_info.participants.add(new_participant)
                 
-                return redirect('registration_success') # get name in url paths
+                return redirect('registration_success', meetup_slug=meetup_slug) # get name in url paths
                 
     
         return render(request, 'meetups/more_details.html', {
@@ -50,5 +56,8 @@ def more_details(request, meetup_slug):
         print(e)
         
 
-def registration_success(request):
-    return render(request, 'meetups/registration-success.html')
+def registration_success(request, meetup_slug):
+    meetup_info = Meetup.objects.get(slug = meetup_slug)
+    return render(request, 'meetups/registration-success.html', {
+        'meetup_info': meetup_info
+    })
